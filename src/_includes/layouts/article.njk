@@ -23,8 +23,6 @@ layout: layouts/base.njk
     </figure>
     {% else %}
     <figure class="article-cover" data-component="article-cover" data-cat="{{ category }}">
-      {% set coverCat = category %}
-      {% set coverTitle = title %}
       {% set size = "full" %}
       {% include "partials/cover-figure.njk" %}
     </figure>
