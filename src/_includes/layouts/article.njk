@@ -13,6 +13,22 @@ layout: layouts/base.njk
         <span>{{ date | dateFilter }}</span>
       </div>
     </header>
+    {% if coverImage %}
+    <figure class="article-cover" data-component="article-cover">
+      <img src="{{ coverImage }}" alt="{{ title }}" loading="lazy">
+    </figure>
+    {% elif figure == "story-arc" %}
+    <figure class="article-cover lead-fig" data-component="article-cover">
+      {% include "partials/figure-story-arc.njk" %}
+    </figure>
+    {% else %}
+    <figure class="article-cover" data-component="article-cover" data-cat="{{ category }}">
+      {% set coverCat = category %}
+      {% set coverTitle = title %}
+      {% set size = "full" %}
+      {% include "partials/cover-figure.njk" %}
+    </figure>
+    {% endif %}
     <article class="article-body">
       {{ content | safe }}
     </article>

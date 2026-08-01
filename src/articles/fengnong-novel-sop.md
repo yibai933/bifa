@@ -1,7 +1,7 @@
 ---
 layout: layouts/article.njk
-title: 风弄｜耽美小说写作特色与技巧 SOP
-category: 对话写作
+title: 风弄｜写作特色与技巧 SOP
+category: 作者SOP
 date: 2026-08-01
 readTime: 3
 level: 入门

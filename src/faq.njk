@@ -24,6 +24,7 @@ description: 笔法常见问题解答——关于内容、投稿、练习展示�
           <a href="#faq-submit" class="ftab">投稿</a>
           <a href="#faq-showcase" class="ftab">练习展示</a>
           <a href="#faq-tech" class="ftab">技术</a>
+          <a href="#faq-manage" class="ftab">文章管理</a>
         </nav>
       </aside>
       <!-- 右侧问答列表 -->
@@ -140,6 +141,44 @@ description: 笔法常见问题解答——关于内容、投稿、练习展示�
             <summary>支持深色模式吗？</summary>
             <div class="faq-answer">
               <p>目前不支持的。我们选择了 GOV.UK 风格的简洁白底设计，优先保证文字可读性和设计一致性。深色模式在考虑中，但不是近期优先项。如果你对此有强烈需求，欢迎来信告诉我们。</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- 文章管理 -->
+        <div class="faq-group" id="faq-manage" data-component="faq-group">
+          <h2 class="faq-group-title">文章管理</h2>
+          <details class="faq-item" data-component="faq-item" open>
+            <summary>怎么给文章加头图？</summary>
+            <div class="faq-answer">
+              <p>在文章的 Markdown frontmatter 里加 <code>coverImage</code> 字段，指向图片路径即可。例如：</p>
+              <p><code>coverImage: /img/articles/my-cover.jpg</code></p>
+              <p>图片文件放在 <code>src/img/articles/</code> 目录下（路径以 <code>/img/articles/</code> 开头）。建议图片宽高比 800:300，不超过 200KB。</p>
+              <p>如果不指定 <code>coverImage</code>，系统会根据文章的 <code>category</code> 字段<strong>自动生成一张 SVG 图案头图</strong>——每个分类有专属配色和图形（人物是同心圆、情节是弧线、世界观是网格等），无需手动操作。</p>
+            </div>
+          </details>
+          <details class="faq-item" data-component="faq-item">
+            <summary>怎么删除一篇文章？</summary>
+            <div class="faq-answer">
+              <p>删除文章分三步：</p>
+              <p><strong>第一步：删除源文件。</strong>在 <code>src/articles/</code> 目录下找到对应的 <code>.md</code> 文件，删除它。如果你用的是 Git 命令行，可以用 <code>git rm src/articles/文件名.md</code>。</p>
+              <p><strong>第二步：提交并推送。</strong>执行 <code>git commit -m "删除文章：文件名"</code>，然后 <code>git push</code>。推送后 Cloudflare Pages 会自动触发重新构建，文章页面就会消失。</p>
+              <p><strong>第三步：检查引用。</strong>如果被删的文章曾出现在首页精选位或有其他文章链接到它，检查一下首页和文章列表是否还正常。通常 Eleventy 会自动从文章集合中移除已删除的文章，不需要额外处理。</p>
+              <p>如果不希望永久删除，只是暂时下线，可以把文章文件移到 <code>src/_drafts/</code> 目录（需要先创建该目录并配置 Eleventy 忽略它），这样文章不会被构建发布，但源文件保留。</p>
+            </div>
+          </details>
+          <details class="faq-item" data-component="faq-item">
+            <summary>怎么新建一篇文章？</summary>
+            <div class="faq-answer">
+              <p>在 <code>src/articles/</code> 目录下新建一个 <code>.md</code> 文件，文件名就是 URL 路径。顶部 frontmatter 必须包含以下字段：</p>
+              <p><code>layout: layouts/article.njk</code><br><code>title: 文章标题</code><br><code>category: 情节结构</code>（必须是模块名称之一）<br><code>date: 2026-01-01</code><br><code>readTime: 10</code><br><code>level: 入门</code>（入门/进阶/高阶）<br><code>excerpt: 摘要文字</code></p>
+              <p>可选字段：<code>coverImage: /img/articles/xxx.jpg</code>（头图）、<code>featured: true</code>（设为首页精选）、<code>figure: story-arc</code>（内置三幕结构 SVG）。写完正文保存后，<code>git push</code> 即可自动发布。</p>
+            </div>
+          </details>
+          <details class="faq-item" data-component="faq-item">
+            <summary>文章的分类可以自定义吗？</summary>
+            <div class="faq-answer">
+              <p>分类名称对应 <code>src/_data/modules.json</code> 里的模块标题（人物塑造、情节结构、世界观构建、对话写作、叙事节奏、修改方法）。文章的 <code>category</code> 字段应该使用这些名称之一，这样首页的「写作方法」目录才能正确统计每个模块下的文章数。如果你需要新增分类，先在 <code>modules.json</code> 里加一个模块条目，然后在文章 frontmatter 里引用这个新分类名。</p>
             </div>
           </details>
         </div>

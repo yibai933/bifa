@@ -77,7 +77,13 @@ featured: false
     </div>
     <div class="articles-grid">
       <article class="lead-article reveal" data-component="lead-article">
-        {% if lead.data.figure == "story-arc" %}{% include "partials/figure-story-arc.njk" %}{% endif %}
+        {% if lead.data.figure == "story-arc" %}
+        <figure class="lead-fig">{% include "partials/figure-story-arc.njk" %}</figure>
+        {% elif lead.data.coverImage %}
+        <figure class="lead-fig"><img src="{{ lead.data.coverImage }}" alt="{{ lead.data.title }}" loading="lazy"></figure>
+        {% else %}
+        <figure class="lead-fig" data-cat="{{ lead.data.category }}">{% set category = lead.data.category %}{% set title = lead.data.title %}{% set size = "full" %}{% include "partials/cover-figure.njk" %}</figure>
+        {% endif %}
         <div class="lead-body">
           <span class="cat-chip">{{ lead.data.category }}</span>
           <h3><a href="{{ lead.url }}">{{ lead.data.title }}</a></h3>
@@ -93,10 +99,19 @@ featured: false
         {% for a in allArticles %}
           {% if loop.index0 >= 1 and loop.index0 <= 3 %}
           <article class="article-item" data-component="article-item">
-            <span class="cat-chip">{{ a.data.category }}</span>
-            <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
-            <p>{{ a.data.excerpt }}</p>
-            <div class="ameta"><span>{{ a.data.readTime }} 分钟</span><span class="dot"></span><span>{{ a.data.level }}</span><span class="dot"></span><span>{{ a.data.date | dateFilter }}</span></div>
+            <div class="article-item-row">
+              {% if a.data.coverImage %}
+              <a class="article-thumb" href="{{ a.url }}"><img src="{{ a.data.coverImage }}" alt="{{ a.data.title }}" loading="lazy"></a>
+              {% else %}
+              <a class="article-thumb" href="{{ a.url }}" data-cat="{{ a.data.category }}">{% set category = a.data.category %}{% set title = a.data.title %}{% set size = "thumb" %}{% include "partials/cover-figure.njk" %}</a>
+              {% endif %}
+              <div class="article-item-body">
+                <span class="cat-chip">{{ a.data.category }}</span>
+                <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
+                <p>{{ a.data.excerpt }}</p>
+                <div class="ameta"><span>{{ a.data.readTime }} 分钟</span><span class="dot"></span><span>{{ a.data.level }}</span><span class="dot"></span><span>{{ a.data.date | dateFilter }}</span></div>
+              </div>
+            </div>
           </article>
           {% endif %}
         {% endfor %}

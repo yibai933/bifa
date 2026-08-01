@@ -13,13 +13,22 @@ description: 笔法 · 小说写作方法全部文章列表。
     <div class="article-list reveal">
       {% for a in collections.articles %}
       <article class="article-item" data-component="article-item">
-        <span class="cat-chip">{{ a.data.category }}</span>
-        <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
-        <p>{{ a.data.excerpt }}</p>
-        <div class="ameta">
-          <span>{{ a.data.readTime }} 分钟</span><span class="dot"></span>
-          <span>{{ a.data.level }}</span><span class="dot"></span>
-          <span>{{ a.data.date | dateFilter }}</span>
+        <div class="article-item-row">
+          {% if a.data.coverImage %}
+          <a class="article-thumb" href="{{ a.url }}"><img src="{{ a.data.coverImage }}" alt="{{ a.data.title }}" loading="lazy"></a>
+          {% else %}
+          <a class="article-thumb" href="{{ a.url }}" data-cat="{{ a.data.category }}">{% set category = a.data.category %}{% set title = a.data.title %}{% set size = "thumb" %}{% include "partials/cover-figure.njk" %}</a>
+          {% endif %}
+          <div class="article-item-body">
+            <span class="cat-chip">{{ a.data.category }}</span>
+            <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
+            <p>{{ a.data.excerpt }}</p>
+            <div class="ameta">
+              <span>{{ a.data.readTime }} 分钟</span><span class="dot"></span>
+              <span>{{ a.data.level }}</span><span class="dot"></span>
+              <span>{{ a.data.date | dateFilter }}</span>
+            </div>
+          </div>
         </div>
       </article>
       {% endfor %}
