@@ -565,6 +565,196 @@ footer{border-top:2px solid var(--ink);background:var(--surface)}
   font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);
 }
 
+/* ============ 通用页面 Hero ============ */
+.page-hero{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
+  background-size:36px 36px;
+  border-bottom:1px solid var(--border);
+  padding:calc(var(--seed-density) * 0.72) 0;
+}
+.page-hero h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(32px, 4.5vw, 48px);
+  line-height:1.12;letter-spacing:-0.01em;
+  margin:16px 0 18px;color:var(--ink);
+}
+.page-lede{
+  max-width:38em;font-size:18px;line-height:1.7;color:var(--muted);
+}
+.page-lede strong{color:var(--ink);font-weight:700}
+
+/* ============ 通用散文区块（投稿/关于内文） ============ */
+.prose-block .block-head{margin-bottom:32px}
+.prose-content{max-width:42em}
+.prose-content p{font-size:17px;line-height:1.85;margin-bottom:1.4em;color:var(--ink)}
+.prose-content p strong{font-weight:700;color:var(--ink)}
+.prose-content a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+
+/* ============ CTA 横幅 ============ */
+.cta-band{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:calc(var(--seed-density) * 0.6) 0;
+}
+.cta-inner{text-align:center;max-width:34em;margin:0 auto}
+.cta-inner h2{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(24px, 3vw, 34px);line-height:1.2;
+  margin-bottom:12px;color:var(--ink);
+}
+.cta-inner p{font-size:16px;line-height:1.7;color:var(--muted);margin-bottom:24px}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+
+/* ============ 关于页：原则卡片 ============ */
+.principle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.principle-card{
+  border:1px solid var(--border);border-radius:0;background:var(--paper);
+  padding:28px 24px 24px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.principle-card:hover{border-color:var(--ink);transform:translateY(-3px);box-shadow:0 3px 0 var(--border)}
+.principle-card .p-no{
+  font-family:var(--font-display);font-size:36px;font-weight:700;
+  color:var(--faint);line-height:1;
+}
+.principle-card h3{
+  font-family:var(--font-display);font-size:20px;font-weight:700;
+  line-height:1.35;color:var(--ink);
+}
+.principle-card p{font-size:14px;line-height:1.7;color:var(--muted)}
+
+/* ============ 关于页：受众列表 ============ */
+.audience-list{border-top:2px solid var(--ink)}
+.audience-row{
+  display:grid;grid-template-columns:64px minmax(0,1fr);gap:24px;
+  padding:26px 12px;border-bottom:1px solid var(--border);
+  transition:background .15s ease;
+}
+.audience-row:hover{background:var(--surface);box-shadow:inset 4px 0 0 var(--link)}
+.audience-row .a-no{
+  font-family:var(--font-display);font-size:30px;font-weight:700;
+  color:var(--faint);line-height:1;transition:color .15s ease;
+}
+.audience-row:hover .a-no{color:var(--link)}
+.audience-row h3{
+  font-family:var(--font-display);font-size:19px;font-weight:700;
+  line-height:1.35;color:var(--ink);margin-bottom:6px;
+}
+.audience-row p{font-size:14px;line-height:1.7;color:var(--muted);max-width:44em}
+
+/* ============ 投稿页：合作卡片 ============ */
+.collab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.collab-card{
+  border:1px solid var(--border);border-radius:0;background:var(--paper);
+  padding:24px 22px;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.collab-card:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 3px 0 var(--border)}
+.collab-card h3{
+  font-family:var(--font-display);font-size:18px;font-weight:700;
+  line-height:1.4;color:var(--ink);margin-bottom:10px;
+}
+.collab-card p{font-size:14px;line-height:1.7;color:var(--muted)}
+
+/* ============ 投稿页：联系条 ============ */
+.contact-band{
+  display:grid;grid-template-columns:1.2fr minmax(0,0.8fr);gap:40px;
+  align-items:center;
+  border:1px solid var(--border);background:var(--surface);
+  padding:32px 36px;
+}
+.contact-info p{font-size:16px;line-height:1.7;color:var(--muted)}
+.contact-email{
+  font-family:var(--font-mono);font-size:22px;font-weight:500;
+  color:var(--ink);margin:8px 0 16px;letter-spacing:0.01em;
+}
+.contact-email .at-sign{color:var(--link)}
+.contact-note{font-size:14px;color:var(--faint);line-height:1.7}
+.contact-side{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.contact-side .fine{font-size:14px;color:var(--muted);line-height:1.7;max-width:24em}
+
+/* ============ FAQ 页 ============ */
+.faq-layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;align-items:start}
+.faq-nav{position:sticky;top:88px}
+.faq-nav nav{display:flex;flex-direction:column;gap:6px}
+.faq-nav a{
+  display:block;font-size:14px;font-weight:500;
+  padding:10px 14px;border:2px solid var(--border);border-radius:0;
+  background:var(--paper);color:var(--ink);text-decoration:none;
+  transition:border-color .15s ease, background .15s ease;
+}
+.faq-nav a:hover{border-color:var(--ink)}
+.faq-nav a.active{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.faq-group{margin-bottom:48px;scroll-margin-top:88px}
+.faq-group:last-child{margin-bottom:0}
+.faq-group-title{
+  font-family:var(--font-display);font-size:22px;font-weight:700;
+  color:var(--ink);margin-bottom:20px;
+  padding-bottom:10px;border-bottom:2px solid var(--ink);
+}
+.faq-item{
+  border-bottom:1px solid var(--border);
+  transition:background .15s ease;
+}
+.faq-item[open]{background:var(--surface)}
+.faq-item summary{
+  font-family:var(--font-body);font-size:17px;font-weight:500;
+  color:var(--ink);padding:18px 36px 18px 0;cursor:pointer;
+  position:relative;list-style:none;
+  transition:color .15s ease;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:"+";position:absolute;right:0;top:18px;
+  font-family:var(--font-mono);font-size:22px;font-weight:500;
+  color:var(--muted);transition:transform .2s ease;
+}
+.faq-item[open] summary::after{content:"−";color:var(--action)}
+.faq-item summary:hover{color:var(--link)}
+.faq-answer{padding:0 36px 20px 0;max-width:42em}
+.faq-answer p{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:0.8em}
+.faq-answer p strong{color:var(--ink);font-weight:700}
+.faq-answer a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+
+/* ============ 习作展示页 ============ */
+.showcase-block{padding-top:calc(var(--seed-density) * 0.7)}
+.showcase-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.showcase-card{
+  border:1px solid var(--border);border-radius:0;background:var(--paper);
+  padding:22px 24px 18px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.showcase-card:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 3px 0 var(--border)}
+.sc-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sc-date{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--faint)}
+.sc-prompt{
+  background:var(--surface);border-left:4px solid var(--border);
+  padding:12px 14px;
+}
+.sc-prompt-label{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--faint);
+}
+.sc-prompt p{font-size:14px;line-height:1.6;color:var(--muted);margin-top:4px}
+.sc-excerpt{
+  font-size:15px;line-height:1.8;color:var(--ink);
+  border-left:4px solid var(--link);padding-left:14px;
+  flex:1;
+}
+.sc-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);padding-top:12px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.04em;color:var(--faint);
+}
+.sc-anon{color:var(--muted)}
+
 /* ============ 响应式 ============ */
 @media (max-width:1024px){
   .vert-note{display:none}
@@ -586,6 +776,14 @@ footer{border-top:2px solid var(--ink);background:var(--surface)}
   .toc-row{grid-template-columns:56px minmax(0,1fr) 32px;gap:16px}
   .toc-meta{display:none}
   .toc-row .no{font-size:26px}
+  .principle-grid{grid-template-columns:1fr}
+  .collab-grid{grid-template-columns:1fr}
+  .faq-layout{grid-template-columns:1fr;gap:32px}
+  .faq-nav{position:static}
+  .faq-nav nav{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .showcase-grid{grid-template-columns:1fr}
+  .contact-band{grid-template-columns:1fr;gap:24px}
+  .audience-row{grid-template-columns:48px minmax(0,1fr);gap:16px}
 }
 @media (max-width:600px){
   .wrap{padding:0 20px}

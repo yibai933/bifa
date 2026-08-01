@@ -47,6 +47,63 @@
     });
   }
 
+  /* ---- FAQ 分类导航高亮（仅 FAQ 页存在） ---- */
+  var faqNavLinks = $$(".faq-nav a");
+  var faqGroups = $$(".faq-group");
+  if (faqNavLinks.length && faqGroups.length) {
+    var faqSpy = function () {
+      var pos = window.scrollY + 120;
+      var current = null;
+      faqGroups.forEach(function (g) { if (g.offsetTop <= pos) current = g; });
+      faqNavLinks.forEach(function (a) { a.classList.remove("active"); });
+      if (current) {
+        var id = current.id;
+        faqNavLinks.forEach(function (a) {
+          if ((a.getAttribute("href") || "").split("#")[1] === id) a.classList.add("active");
+        });
+      }
+    };
+    window.addEventListener("scroll", faqSpy, { passive: true });
+    faqSpy();
+    // 点击导航时阻止默认跳转，改用平滑滚动
+    faqNavLinks.forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var hash = (a.getAttribute("href") || "").split("#")[1];
+        var target = hash ? document.getElementById(hash) : null;
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  }
+
+  /* ---- 习作展示页筛选（仅展示页存在） ---- */
+  var showcaseTabs = $$(".showcase-block .ftab");
+  if (showcaseTabs.length) {
+    var scCards = $$(".showcase-card");
+    var scCountEl = $("#showcaseCount");
+    var scEmptyEl = $("#showcaseEmpty");
+    var scGrid = $("#showcaseGrid");
+    var scTotal = scCountEl ? parseInt(scCountEl.dataset.total, 10) || scCards.length : scCards.length;
+    showcaseTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        showcaseTabs.forEach(function (t) { t.classList.remove("active"); });
+        tab.classList.add("active");
+        var f = tab.dataset.filter;
+        var shown = 0;
+        scCards.forEach(function (c) {
+          var hit = (f === "全部") || (c.dataset.cat && c.dataset.cat.split(" ").indexOf(f) > -1);
+          c.style.display = hit ? "" : "none";
+          if (hit) shown++;
+        });
+        if (scCountEl) scCountEl.textContent = "显示 " + shown + " / " + scTotal + " 篇习作";
+        if (scEmptyEl) scEmptyEl.style.display = shown === 0 ? "block" : "none";
+        if (scGrid) scGrid.style.display = shown === 0 ? "none" : "grid";
+      });
+    });
+  }
+
   /* ---- 写作练习：随机题库 + 字数统计 + 匿名提交（仅首页存在） ---- */
   var pracForm = $("#pracForm");
   if (pracForm) {

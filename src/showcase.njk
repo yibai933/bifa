@@ -1,0 +1,72 @@
+---
+layout: layouts/base.njk
+title: 习作展示 · 笔法
+description: 笔法写作练习匿名提交展示页——看看别人怎么写同一道题。
+---
+
+<section class="page-hero" data-component="page-hero">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Showcase · 习作展示</span>
+      <h1>习作展示</h1>
+      <p class="page-lede">这里展示匿名提交的写作练习习作。没有用户名、没有头像——只有文字本身。看看别人怎么写同一道题，给自己找参考和灵感。</p>
+    </div>
+  </div>
+</section>
+
+<section class="block showcase-block" id="showcase" data-component="showcase" style="padding-top:calc(var(--seed-density) * 0.7)">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <span class="idx">01</span>
+      <h2>全部习作</h2>
+      <div class="rule"></div>
+    </div>
+
+    <!-- 分类筛选 -->
+    <div class="filter-row reveal" data-component="showcase-filter" role="tablist" aria-label="按分类筛选习作">
+      <button class="ftab active" data-filter="全部">全部<small>{{ showcase.length }}</small></button>
+      {% set cats = ["人物","对话","情节","世界观","节奏","修改"] %}
+      {% for c in cats %}
+      {% set count = 0 %}
+      {% for s in showcase %}{% if s.cat == c %}{% set count = count + 1 %}{% endif %}{% endfor %}
+      <button class="ftab" data-filter="{{ c }}">{{ c }}<small>{{ count }}</small></button>
+      {% endfor %}
+    </div>
+    <p class="skill-count" id="showcaseCount" data-total="{{ showcase.length }}">显示 {{ showcase.length }} / {{ showcase.length }} 篇习作</p>
+
+    <!-- 习作卡片网格 -->
+    <div class="showcase-grid reveal" id="showcaseGrid">
+      {% for s in showcase %}
+      <article class="showcase-card" data-component="showcase-card" data-cat="{{ s.cat }}">
+        <div class="sc-top">
+          <span class="cat-chip">{{ s.cat }}</span>
+          <span class="sc-date">{{ s.date | dateFilter }}</span>
+        </div>
+        <div class="sc-prompt">
+          <span class="sc-prompt-label">练习题</span>
+          <p>{{ s.prompt }}</p>
+        </div>
+        <blockquote class="sc-excerpt">{{ s.excerpt }}</blockquote>
+        <div class="sc-foot">
+          <span class="sc-words">{{ s.wordCount | thousands }} 字</span>
+          <span class="sc-anon">匿名习作</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="skills-empty" id="showcaseEmpty">该分类下暂无习作</div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="cta-band">
+  <div class="wrap">
+    <div class="reveal cta-inner">
+      <h2>你也来写一题？</h2>
+      <p>抽一道随机练习题，写完匿名提交，你的习作也会出现在这里。</p>
+      <div class="cta-actions">
+        <a class="btn btn--solid" href="/#practice">去写作练习 <span class="arr">→</span></a>
+        <a class="btn btn--ghost" href="/faq/">关于展示页的常见问题 <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
