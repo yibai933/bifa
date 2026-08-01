@@ -1,0 +1,180 @@
+---
+layout: layouts/base.njk
+title: 笔法 · 小说写作方法与技能库
+description: 笔法是一套面向小说作者的写作方法体系：从人物、情节到世界观，每个模块由浅入深，配套可以立即动笔的练习。
+featured: false
+---
+
+{% set allArticles = collections.articles %}
+{% set allSkills = collections.skills %}
+{% set featured = (allArticles | where("featured", true)) | first %}
+{% if not featured %}{% set featured = allArticles | first %}{% endif %}
+{% set lead = allArticles | first %}
+
+<!-- 开场 -->
+<section class="opening" data-component="opening">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Novel Craft · 小说创作练习站</span>
+      <h1>把小说写作，<br>拆成可以<em>练习</em>的手艺。</h1>
+      <p class="lede">笔法是一套面向小说作者的写作方法体系：从<strong>人物、情节</strong>到<strong>世界观</strong>，每个模块由浅入深，配套可以立即动笔的练习。写作是手艺，手艺靠练习。</p>
+      <div class="opening-cta">
+        <a class="btn btn--solid" href="/#curriculum">浏览写作方法 <span class="arr">↓</span></a>
+        <a class="btn btn--ghost" href="/#skills">探索 Skills 库 <span class="arr">→</span></a>
+      </div>
+      <ul class="stats" data-component="stats">
+        <li><div class="num" data-count="{{ modules.length }}">{{ modules.length }}</div><div class="lab">方法模块</div></li>
+        <li><div class="num" data-count="{{ allArticles.length }}">{{ allArticles.length }}</div><div class="lab">篇方法文章</div></li>
+        <li><div class="num" data-count="{{ allSkills.length }}">{{ allSkills.length }}</div><div class="lab">项写作技能</div></li>
+      </ul>
+    </div>
+
+    <div class="reveal" style="position:relative">
+      <article class="feature-card" data-component="feature-card">
+        <span class="tag">本周精选 · {{ featured.data.category }} 模块</span>
+        <h3>{{ featured.data.title }}</h3>
+        <blockquote>{{ featured.data.excerpt }}</blockquote>
+        <div class="fmeta">
+          <span>{{ featured.data.readTime }} 分钟</span><span class="sep"></span>
+          <span>{{ featured.data.level }}</span><span class="sep"></span>
+          <span>更新于 {{ featured.data.date | dateFilter }}</span>
+        </div>
+        <a class="read" href="{{ featured.url }}">阅读这篇文章 <span class="arr">→</span></a>
+      </article>
+    </div>
+  </div>
+  <div class="vert-note" aria-hidden="true">人物 · 情节 · 世界观 · 对话 · 节奏 · 修改</div>
+</section>
+
+<!-- 写作方法 -->
+<section class="block" id="curriculum" data-component="curriculum">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <span class="idx">01</span>
+      <h2>写作方法</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="toc reveal" data-component="toc">
+      {% for m in modules %}
+      <a class="toc-row" data-component="toc-row" href="/#curriculum" tabindex="0">
+        <div class="no">{{ m.no }}</div>
+        <div><h3>{{ m.title }}</h3><p>{{ m.desc }}</p></div>
+        <div class="toc-meta"><b>{{ allArticles | countByCategory(m.title) }}</b> 篇文章<br>{{ m.range }}</div>
+        <div class="go">→</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 精选文章 -->
+<section class="block" id="articles" data-component="articles" style="padding-top:0">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <span class="idx">02</span>
+      <h2>精选文章</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="articles-grid">
+      <article class="lead-article reveal" data-component="lead-article">
+        {% if lead.data.figure == "story-arc" %}{% include "partials/figure-story-arc.njk" %}{% endif %}
+        <div class="lead-body">
+          <span class="cat-chip">{{ lead.data.category }}</span>
+          <h3><a href="{{ lead.url }}">{{ lead.data.title }}</a></h3>
+          <p>{{ lead.data.excerpt }}</p>
+          <div class="ameta">
+            <span>{{ lead.data.readTime }} 分钟</span><span class="dot"></span>
+            <span>{{ lead.data.level }}</span><span class="dot"></span>
+            <span>{{ lead.data.date | dateFilter }}</span>
+          </div>
+        </div>
+      </article>
+      <div class="article-list reveal">
+        {% for a in allArticles %}
+          {% if loop.index0 >= 1 and loop.index0 <= 3 %}
+          <article class="article-item" data-component="article-item">
+            <span class="cat-chip">{{ a.data.category }}</span>
+            <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
+            <p>{{ a.data.excerpt }}</p>
+            <div class="ameta"><span>{{ a.data.readTime }} 分钟</span><span class="dot"></span><span>{{ a.data.level }}</span><span class="dot"></span><span>{{ a.data.date | dateFilter }}</span></div>
+          </article>
+          {% endif %}
+        {% endfor %}
+        <a class="more-link" href="/articles/">查看全部 {{ allArticles.length }} 篇文章 <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills 库 -->
+<section class="block skills-block" id="skills" data-component="skills">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <span class="idx">03</span>
+      <h2>Skills 库</h2>
+      <p class="sub">把每一项写作能力做成一张可执行的技能卡：拿到就能练，练完就能用。</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="filter-row reveal" data-component="skill-filter" role="tablist" aria-label="按分类筛选技能">
+      <button class="ftab active" data-filter="全部">全部<small>{{ allSkills.length }}</small></button>
+      {% set cats = ["人物","情节","世界观","对话","节奏","修改"] %}
+      {% for c in cats %}
+      <button class="ftab" data-filter="{{ c }}">{{ c }}<small>{{ allSkills | countByCategory(c) }}</small></button>
+      {% endfor %}
+    </div>
+    <p class="skill-count" id="skillCount" data-total="{{ allSkills.length }}">显示 {{ allSkills.length }} / {{ allSkills.length }} 项技能</p>
+
+    <div class="skill-grid reveal" id="skillGrid">
+      {% for s in allSkills %}
+      <article class="scard" data-component="skill-card" data-cat="{{ s.data.category }}">
+        <div class="top"><span class="cat-chip">{{ s.data.category }}</span><span class="lvl lvl--{% if s.data.level == '入门' %}easy{% elif s.data.level == '高阶' %}hard{% else %}mid{% endif %}">{{ s.data.level }}</span></div>
+        <h3>{{ s.data.title }}</h3>
+        <p>{{ s.data.excerpt }}</p>
+        <div class="tags">{% for t in s.data.tags %}<span>{{ t }}</span>{% endfor %}</div>
+        <div class="foot"><span>{{ s.data.practiceCount | thousands }} 人练过</span><span class="open">查看技能 →</span></div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="skills-empty" id="skillsEmpty">该分类下暂无技能卡</div>
+  </div>
+</section>
+
+<!-- 写作练习 -->
+<section class="practice" id="practice" data-component="practice">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Daily Prompt · 随机写作练习</span>
+      <h2>随机写作练习题</h2>
+      <p class="intro">抽一道题，现在就动笔。写完可以匿名提交习作——无需注册，不保存任何个人信息。</p>
+      <div class="prompt-card" data-component="prompt-card">
+        <div class="prompt-top">
+          <span class="cat-chip" id="promptCat">人物</span>
+          <button class="reroll" id="rerollBtn" type="button">换一题 <span class="arr">↻</span></button>
+        </div>
+        <p class="prompt-text" id="promptText">写一个人物在深夜便利店犹豫要不要买某样东西的三分钟。</p>
+        <p class="prompt-hint" id="promptHint">提示：不要写他「想」什么，只写动作、货架灯光和收银员的目光。</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="prac-form" id="pracForm" data-component="practice-form" novalidate>
+        <label for="pracText">你的习作</label>
+        <div class="prac-hintline"><span>围绕这道题写一段练习，写完匿名提交</span><span class="char-count" id="charCount">0 字</span></div>
+        <p class="prac-error" id="pracError" role="alert"><b>请先写点什么</b>——哪怕只有一两句，再提交。</p>
+        <textarea id="pracText" rows="9" maxlength="2000" placeholder="从这里开始写……"></textarea>
+        <div class="prac-actions">
+          <button type="submit" class="btn btn--solid">匿名提交习作 <span class="arr">→</span></button>
+          <span class="fine">无需注册 · 不保存个人信息</span>
+        </div>
+      </form>
+      <div class="prac-ok" id="pracOk">
+        <b>提交成功！</b> 你的习作已收到。写作是手艺，手艺靠练习——明天再来抽一题。
+        <br>
+        <button class="reroll reroll--inline" id="againBtn" type="button">再练一题 <span class="arr">↻</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 题库数据：供 main.js 读取，数据源为 src/_data/prompts.json -->
+<script type="application/json" id="promptsData">{{ prompts | dump(2) | safe }}</script>

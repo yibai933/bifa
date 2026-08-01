@@ -1,0 +1,14 @@
+{
+  "name": "bifa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "笔法 · 小说写作方法与技能库 —— Markdown 驱动的静态站点",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

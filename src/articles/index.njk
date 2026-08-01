@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+title: 全部文章 · 笔法
+description: 笔法 · 小说写作方法全部文章列表。
+---
+<section class="block" id="articles" style="padding-top:calc(var(--seed-density) * 0.7)">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <span class="idx">02</span>
+      <h2>全部文章</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="article-list reveal">
+      {% for a in collections.articles %}
+      <article class="article-item" data-component="article-item">
+        <span class="cat-chip">{{ a.data.category }}</span>
+        <h3><a href="{{ a.url }}">{{ a.data.title }}</a></h3>
+        <p>{{ a.data.excerpt }}</p>
+        <div class="ameta">
+          <span>{{ a.data.readTime }} 分钟</span><span class="dot"></span>
+          <span>{{ a.data.level }}</span><span class="dot"></span>
+          <span>{{ a.data.date | dateFilter }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

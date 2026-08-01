@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% set fallback = site.name ~ " · " ~ site.nameEn %}
+<title>{{ title or fallback }}</title>
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="site-nav" id="top" data-component="nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="{{ site.name }} 首页">
+      <span class="seal" aria-hidden="true">笔</span>
+      <span class="zi">{{ site.name }}</span>
+      <span class="en">{{ site.nameEn }}</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/#curriculum">写作方法</a>
+      <a href="/#articles">精选文章</a>
+      <a href="/#skills">Skills 库</a>
+      <a href="/#practice">写作练习</a>
+    </div>
+    <div class="nav-search" aria-hidden="true">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      搜索文章 / 技能
+    </div>
+    <a class="btn btn--solid nav-cta" href="/#practice">开始写作 <span class="arr">→</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="展开导航" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main>
+{{ content | safe }}
+</main>
+
+<!-- 页脚 -->
+<footer data-component="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="zi"><span class="seal" aria-hidden="true">笔</span>{{ site.name }}</div>
+        <p>一套写给小说作者的写作方法与技能库。{{ site.tagline }}</p>
+      </div>
+      <div class="foot-col">
+        <h4>方法模块</h4>
+        <ul>
+          {% for m in modules %}
+          <li><a href="/#curriculum">{{ m.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Skills 库</h4>
+        <ul>
+          <li><a href="/#skills">人物技能</a></li>
+          <li><a href="/#skills">情节技能</a></li>
+          <li><a href="/#skills">世界观技能</a></li>
+          <li><a href="/#skills">对话技能</a></li>
+          <li><a href="/#skills">节奏与修改</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="/">关于{{ site.name }}</a></li>
+          <li><a href="/">投稿与合作</a></li>
+          <li><a href="/">常见问题</a></li>
+          <li><a href="/#practice">写作练习</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>{{ site.copyright }}</span>
+      <span>{{ site.footerTags }}</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>

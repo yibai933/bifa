@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+---
+<section class="article-page">
+  <div class="wrap">
+    <a class="article-back" href="/#articles"><span class="arr">←</span> 返回文章</a>
+    <header class="article-head">
+      <span class="cat-chip">{{ category }}</span>
+      <h1>{{ title }}</h1>
+      <div class="ameta">
+        <span>{{ readTime }} 分钟</span><span class="dot"></span>
+        <span>{{ level }}</span><span class="dot"></span>
+        <span>{{ date | dateFilter }}</span>
+      </div>
+    </header>
+    <article class="article-body">
+      {{ content | safe }}
+    </article>
+  </div>
+</section>
